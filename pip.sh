@@ -1,0 +1,2 @@
+#ffmpeg -i main.mp4 -i sub.mp4 -filter_complex "[1]scale=iw/1:ih/1 [pip]; [0][pip] overlay=main_w-overlay_w-10:main_h-overlay_h-10" -profile:v main -level 3.1 -b:v 440k -ar 44100 -ab 128k -s 720x400 -vcodec h264 -acodec aac PIP_output1.mp4
+ffmpeg -i main.mp4 -i sub.mp4 -filter_complex "[1]scale=iw/1:ih/1 [pip]; [0][pip] overlay=main_w-overlay_w-10:main_h-overlay_h-10" -profile:v main -level 3.1 -b:v 10m -ar 44100 -ab 128k -s 1920x1080 -vcodec h264 -acodec aac PIP_output1.mp4
