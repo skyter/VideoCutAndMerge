@@ -10,12 +10,13 @@ echo "Then this script will cut the part you want and save to \"1 0200-0400.mp4\
 echo " "
 echo " "
 echo "Starting to parse."
+rm cmd.sh
+rm cmdtr.sh
+rm file.lst
 for FILE in *.txt; do
 	MAIN=`echo $FILE|cut -d '.' -f 1`
 	VIDEO=`ls|grep $MAIN|grep -v txt|grep -v cut`
 	echo $VIDEO"..."
-	rm cmd.sh
-	rm file.lst
 	while read -r a b; do
 		echo $a $b
 		if [ $a"x" != "x" ] && [ $b"x" != "x" ]; then
@@ -27,9 +28,9 @@ for FILE in *.txt; do
 			B=`echo $b|sed "s/://g"`
 			CUT="Cutting $MAIN\ $A\-$B\ cut.mp4 ..."
 			echo $CUT" Duration: "$DUR
-			echo ffmpeg -i $VIDEO -ss 00\:$a -t 00\:$DUR -acodec copy -vcodec copy -async 1 \"$MAIN_$A-$B_cut.mp4\" >> cmd.sh
-			echo ffmpeg -i $VIDEO -ss 00\:$a -t 00\:$DUR -async 1 \"$MAIN_$A-$B_cut.mp4\" >> cmdtr.sh
-			echo file \'$MAIN $A-$B cut.mp4\' >> file.lst
+			echo "ffmpeg -i $VIDEO -ss 00\:$a -t 00\:$DUR -acodec copy -vcodec copy -async 1 \""$MAIN"_"$A"-"$B"_cut.mp4\"" >> cmd.sh
+			echo "ffmpeg -i $VIDEO -ss 00\:$a -t 00\:$DUR -async 1 \""$MAIN"_"$A"-"$B"_cut.mp4\"" >> cmdtr.sh
+			echo "file "$MAIN"_"$A"-"$B"_cut.mp4" >> file.lst
 			#ffmpeg -i $VIDEO -ss 00\:$a -t 00\:$DUR -acodec copy -vcodec copy -async 1 "$MAIN $A-$B cut.mp4" >> cmd.sh
 			#if [ $? -eq 1 ]; then
 			#	echo "Can't cut copy, changing to transcode..."
